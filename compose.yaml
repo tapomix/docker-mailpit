@@ -1,0 +1,59 @@
+services:
+  mailpit:
+    image: axllent/mailpit:${SERVICE_VERSION}
+    container_name: ${CONTAINER_NAME}
+    restart: unless-stopped
+    user: ${UID}:${GID}
+    security_opt:
+      - no-new-privileges=true
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+
+    environment:
+      MP_DATABASE: /data/mailpit.db
+      MP_DISABLE_VERSION_CHECK: true
+      TZ: ${TZ}
+
+    volumes:
+      - .docker/data:/data
+
+    networks:
+      - service-net
+      - traefik-net
+
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:${TRAEFIK_PORT}/api/v1/info"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+    # limit resources
+    cpus: 0.25
+    mem_limit: 64m
+    pids_limit: 40
+
+    # logging
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: 3
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=${TRAEFIK_NET}" # force provider network if not defined in traefik config
+      - "traefik.http.routers.${CONTAINER_NAME}-https.rule=Host(`${TRAEFIK_HOST}`)"
+      - "traefik.http.routers.${CONTAINER_NAME}-https.entrypoints=websecure"
+      - "traefik.http.services.${CONTAINER_NAME}.loadbalancer.server.port=${TRAEFIK_PORT}"
+
+networks:
+  service-net:
+    internal: true
+    name: ${SERVICE_NET}
+  traefik-net:
+    external: true
+    name: ${TRAEFIK_NET}
