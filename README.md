@@ -106,6 +106,12 @@ This configuration includes security hardening:
 - **No new privileges**: Prevents privilege escalation
 - **Dropped capabilities**: All capabilities are dropped
 
+## Alternatives
+
+- [MailHog](https://github.com/mailhog/MailHog) - Popular but no longer maintained (Mailpit is its spiritual successor)
+- [Inbucket](https://inbucket.org/) - Disposable email platform with REST API
+- [smtp4dev](https://github.com/rnwood/smtp4dev) - Cross-platform SMTP server with web interface
+
 ## Resources
 
 - Mailpit documentation: <https://mailpit.axllent.org/docs/>
