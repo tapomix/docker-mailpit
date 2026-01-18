@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [0.1.1] - 2026-01-18
+
+### Changed
+
+- Service network is now internal and must be created manually
+
+### Added
+
+- Add alternatives section in documentation
+
+---
+
 ## [0.1.0] - 2026-01-17
 
 ### Added
