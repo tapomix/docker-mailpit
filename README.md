@@ -19,6 +19,12 @@ Clone the repository and navigate to the project directory:
 git clone https://github.com/tapomix/docker-mailpit.git mailpit
 ```
 
+Create the internal network for inter-service communication:
+
+```bash
+docker network create --internal mailpit # or your SERVICE_NET value
+```
+
 ## Configuration
 
 Copy the environment template file and edit it with your values:
