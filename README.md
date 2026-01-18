@@ -42,8 +42,8 @@ cp .env.dist .env
 | `TRAEFIK_HOST` | Hostname for Traefik routing (default: *`${CONTAINER_NAME}.domain.ext`*) |
 | `TRAEFIK_NET` | Traefik network name (default: *`traefik-net`*) |
 | `TZ` | Timezone (default: *`Etc/UTC`*) |
-| `UID` | User ID for file permissions (default: *`1000`*) |
-| `GID` | Group ID for file permissions (default: *`1000`*) |
+| `USER_ID` | User ID for file permissions (default: *`1000`*) |
+| `GROUP_ID` | Group ID for file permissions (default: *`1000`*) |
 
 ## Usage
 
@@ -107,7 +107,7 @@ Full API documentation: <https://mailpit.axllent.org/docs/api-v1/>
 
 This configuration includes security hardening:
 
-- **Rootless**: Runs as non-root user (`UID`/`GID`)
+- **Rootless**: Runs as non-root user (`USER_ID`/`GROUP_ID`)
 - **Read-only**: Filesystem is read-only with mounted volume for data
 - **No new privileges**: Prevents privilege escalation
 - **Dropped capabilities**: All capabilities are dropped
